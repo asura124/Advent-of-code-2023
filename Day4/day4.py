@@ -39,12 +39,14 @@ def total_scratchcards(file):
             for i in line[1].split(' '):
                 if(i in winnings):
                     count += 1
-            for s in range(card+1,card+count+1):
-                if(s not in total_copies):
-                    total_copies[s] = 1
-                else:
-                    total_copies[s] += total_copies[card]
-        #print(total_copies)
+            
+            for i in range(0,total_copies[card]):
+                for s in range(card+1,card+count+1):
+                    if(s not in total_copies):
+                        total_copies[s] = 1
+                    else:
+                        total_copies[s] += 1
+        print(total_copies)
         for i in total_copies:
             scartchcards += total_copies[i]
     return scartchcards
@@ -54,5 +56,3 @@ def total_scratchcards(file):
 
 print(total_winning_points("input.txt"))
 print(total_scratchcards("input.txt"))
-
-
