@@ -3,6 +3,10 @@
 def sum_length_galaxies(file):
     galaxy = []
     gal = []
+    pair_gals = {}
+    total = 0
+    empty_row = ['.'] * len(galaxy)
+    count = 0
     with open(file) as f:
         for line in f:
             galaxy.append(list(line.strip('\n')))
@@ -15,8 +19,6 @@ def sum_length_galaxies(file):
                     row.remove(i)
                 if(j in col):
                     col.remove(j)
-    empty_row = ['.'] * len(galaxy)
-    count = 0
     for i in row:
         galaxy.insert(i+count,empty_row.copy())
         count +=1
@@ -29,13 +31,11 @@ def sum_length_galaxies(file):
         for j in range(len(galaxy[i])):
             if(galaxy[i][j]=='#'):
                 gal.append([i,j])
-    pair_gals = {}
-    total = 0
     for g1 in gal:
         for g2 in gal:
             if(g1==g2 or (tuple(g1),tuple(g2)) in pair_gals or (tuple(g2),tuple(g1)) in pair_gals):
                 continue
-            total = total + (abs(g1[0]-g2[0]) + abs(g1[1] - g2[1]))
+            total += (abs(g1[0] - g2[0]) + abs(g1[1] - g2[1]))
             #total += get_shortest_dist(galaxy,g1,g2) #the long way 
             pair_gals[(tuple(g1),tuple(g2))] = 1
     return total
@@ -73,6 +73,8 @@ def get_shortest_dist(arr,cor1,cor2):
 def sum_length_million_galaxies(file):
     galaxy = []
     gal = []
+    pair_gals = {}
+    total = 0
     with open(file) as f:
         for line in f:
             galaxy.append(list(line.strip('\n')))
@@ -98,13 +100,11 @@ def sum_length_million_galaxies(file):
                     if(j>c):
                         curr_col += 999999
                 gal.append([curr_row,curr_col])
-    pair_gals = {}
-    total = 0
     for g1 in gal:
         for g2 in gal:
             if(g1==g2 or (tuple(g1),tuple(g2)) in pair_gals or (tuple(g2),tuple(g1)) in pair_gals):
                 continue
-            total = total + (abs(g1[0]-g2[0]) + abs(g1[1] - g2[1]))
+            total += (abs(g1[0] - g2[0]) + abs(g1[1] - g2[1]))
             pair_gals[(tuple(g1),tuple(g2))] = 1
     return total
 
